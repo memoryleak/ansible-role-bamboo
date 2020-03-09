@@ -1,0 +1,8 @@
+---
+- name: Create SystemD service file
+  template:
+      dest: /etc/systemd/system/bamboo.service
+      src: bamboo.service.j2
+      mode: 0744
+  when:
+    - bamboo_create_systemd

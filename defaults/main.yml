@@ -8,3 +8,9 @@ bamboo_install_location: "{{ bamboo_install_prefix }}/atlassian-bamboo-{{ bamboo
 bamboo_home_path: "/var/local/atlassian-bamboo"
 bamboo_reverse_proxy_port: 443
 bamboo_reverse_proxy_domain: false
+bamboo_user: bamboo
+bamboo_group: atlassian
+bamboo_create_systemd: true
+bamboo_jvm_memory:
+  minimum: 1G
+  maximum: 12G

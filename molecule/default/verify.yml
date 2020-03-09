@@ -8,6 +8,8 @@
     bamboo_reverse_proxy_port: 443
     bamboo_copy_from_file: binary/atlassian-bamboo-6.10.4.tar.gz
     bamboo_home_path: /var/local/atlassian-bamboo
+    bamboo_user: root
+    bamboo_group: root
 
   tasks:
   - name: Example assertion

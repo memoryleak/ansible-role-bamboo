@@ -56,3 +56,8 @@
       line: 'secure="true" scheme="https" proxyName="{{ bamboo_reverse_proxy_domain }}" proxyPort="{{ bamboo_reverse_proxy_port }}" redirectPort="{{ bamboo_reverse_proxy_port }}">'
   when:
     - bamboo_reverse_proxy_domain is not false
+
+- name: Include SystemD tasks
+  import_tasks: "systemd.yml"
+  when:
+    - bamboo_create_systemd
