@@ -6,6 +6,7 @@
     bamboo_reverse_proxy_port: 443
     bamboo_copy_from_file: binary/atlassian-bamboo-6.10.4.tar.gz
     bamboo_home_path: /var/local/atlassian-bamboo
+    bamboo_create_systemd: false
   tasks:
     - name: "Include memoryleak.bamboo"
       include_role:

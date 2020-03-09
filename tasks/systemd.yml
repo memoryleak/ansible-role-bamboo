@@ -6,3 +6,10 @@
       mode: 0744
   when:
     - bamboo_create_systemd
+
+- name: Reload SystemD files
+  systemd:
+      name: bamboo
+      daemon_reload: true
+  when:
+    - bamboo_create_systemd

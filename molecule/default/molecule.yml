@@ -6,26 +6,23 @@ driver:
 platforms:
   - name: centos_7
     image: centos:7
-    pre_build_image: true
+    docker_file: Dockerfile.j2
 
   - name: centos_8
     image: centos:8
-    pre_build_image: true
+    docker_file: Dockerfile.j2
 
   - name: debian_10
     image: debian:10
     docker_file: Dockerfile.j2
-    # pre_build_image: true
 
   - name: ubuntu_1804
     image: ubuntu:18.04
     docker_file: Dockerfile.j2
-    # pre_build_image: true
 
   - name: ubuntu_2004
     image: ubuntu:20.04
     docker_file: Dockerfile.j2
-    # pre_build_image: true
 
 provisioner:
   name: ansible
