@@ -1,0 +1,4 @@
+---
+# handlers file for memoryleak.bamboo
+- name: Include distribution-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"

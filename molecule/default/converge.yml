@@ -1,0 +1,12 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    bamboo_reverse_proxy_domain: "bamboo.example.net"
+    bamboo_reverse_proxy_port: 443
+    bamboo_copy_from_file: binary/atlassian-bamboo-6.10.4.tar.gz
+    bamboo_home_path: /var/local/atlassian-bamboo
+  tasks:
+    - name: "Include memoryleak.bamboo"
+      include_role:
+        name: "memoryleak.bamboo"

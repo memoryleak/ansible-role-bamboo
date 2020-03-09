@@ -1,0 +1,58 @@
+---
+# tasks file for memoryleak.bamboo
+- name: Include distribution-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Download Bamboo
+  get_url:
+    dest: /tmp/bamboo.tgz
+    url: "{{ bamboo_download_url }}"
+  when:
+    - bamboo_copy_from_file is false
+
+- name: Copy Bamboo archive
+  copy:
+    dest: /tmp/bamboo.tgz
+    src: "{{ bamboo_copy_from_file }}"
+  when:
+    - bamboo_copy_from_file is not false
+
+- name: Create Bamboo installation directory
+  file:
+    path: "{{ bamboo_install_prefix }}"
+    state: directory
+
+- name: Extract Bamboo archive
+  unarchive:
+    src: /tmp/bamboo.tgz
+    dest: "{{ bamboo_install_prefix }}"
+    remote_src: yes
+    creates: "{{ bamboo_install_location }}"
+
+- name: Create current symlink
+  file:
+    path: "{{ bamboo_install_prefix }}/atlassian-bamboo-current"
+    src: "{{ bamboo_install_location }}"
+    force: yes
+    state: link
+
+- name: Create Bamboo home directory
+  file:
+    path: "{{ bamboo_home_path }}"
+    state: directory
+
+- name: Set Bamboo home directory
+  lineinfile:
+      path: "{{ bamboo_install_location }}/atlassian-bamboo/WEB-INF/classes/bamboo-init.properties"
+      state: present
+      regexp: "#?bamboo.home=(.*)"
+      line: "bamboo.home={{ bamboo_home_path }}"
+
+- name: Set reverse proxy configuration
+  lineinfile:
+      path: "{{ bamboo_install_location }}/conf/server.xml"
+      state: present
+      regexp: 'redirectPort="8443">'
+      line: 'secure="true" scheme="https" proxyName="{{ bamboo_reverse_proxy_domain }}" proxyPort="{{ bamboo_reverse_proxy_port }}" redirectPort="{{ bamboo_reverse_proxy_port }}">'
+  when:
+    - bamboo_reverse_proxy_domain is not false

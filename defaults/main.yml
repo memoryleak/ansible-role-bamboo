@@ -1,0 +1,10 @@
+---
+# defaults file for memoryleak.bamboo
+bamboo_version: 6.10.4
+bamboo_download_url: "https://product-downloads.atlassian.com/software/bamboo/downloads/atlassian-bamboo-{{ bamboo_version }}.tar.gz"
+bamboo_copy_from_file: false
+bamboo_install_prefix: /opt
+bamboo_install_location: "{{ bamboo_install_prefix }}/atlassian-bamboo-{{ bamboo_version }}"
+bamboo_home_path: "/var/local/atlassian-bamboo"
+bamboo_reverse_proxy_port: 443
+bamboo_reverse_proxy_domain: false

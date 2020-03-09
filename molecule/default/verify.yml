@@ -1,0 +1,42 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  vars:
+    bamboo_reverse_proxy_domain: "bamboo.example.net"
+    bamboo_reverse_proxy_port: 443
+    bamboo_copy_from_file: binary/atlassian-bamboo-6.10.4.tar.gz
+    bamboo_home_path: /var/local/atlassian-bamboo
+
+  tasks:
+  - name: Example assertion
+    assert:
+      that: true
+
+  - stat:
+      path: /tmp/bamboo.tgz
+    register: bamboo_archive
+
+  - stat:
+      path: "/opt/atlassian-bamboo-current"
+    register: bamboo_current_symlink
+
+  - stat:
+      path: "{{ bamboo_home_path }}"
+    register: bamboo_home_path
+
+  - assert:
+      that: bamboo_archive.stat.exists
+      fail_msg: Bamboo archive not found
+      success_msg: Bamboo archive found
+
+  - assert:
+      that: bamboo_current_symlink.stat.exists
+      fail_msg: Bamboo current symlink not found
+      success_msg: Bamboo current symlink found
+
+  - assert:
+      that: bamboo_home_path.stat.exists
+      fail_msg: Bamboo home folder not found
+      success_msg: Bamboo home folder found
