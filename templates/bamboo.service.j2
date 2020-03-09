@@ -1,3 +1,4 @@
+# {{ ansible_managed }}
 [Unit]
 Description=automated builds, tests, and releases together in a single workflow
 After=syslog.target network.target
@@ -11,8 +12,8 @@ Environment=JVM_MAXIMUM_MEMORY={{ bamboo_jvm_memory.maximum }}
 Type=forking
 User={{ bamboo_user }}
 Group={{ bamboo_group }}
-ExecStart={{ bamboo_install_location }}/bin/start-bamboo.sh
-ExecStop={{ bamboo_install_location }}/bin/stop-bamboo.sh
+ExecStart={{ bamboo_install_prefix }}/atlassian-bamboo-current/bin/start-bamboo.sh
+ExecStop={{ bamboo_install_prefix }}/atlassian-bamboo-current/bin/stop-bamboo.sh
 
 [Install]
 WantedBy=multi-user.target
