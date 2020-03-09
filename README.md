@@ -1,38 +1,47 @@
-Role Name
-=========
+memoryleak.bamboo
+=================
 
-A brief description of the role goes here.
+Installs and configures Bamboo
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+In order for Bamboo to run you need to have Java installed and configured.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+  bamboo_version: # Bamboo version to isntall
+  bamboo_copy_from_file: # If you prefer to copy over the installation tarball provide the path here
+  bamboo_install_prefix: # Parent installation folder
+  bamboo_home_path: # Path to Bamboo's home folder
+  bamboo_reverse_proxy_port: # If Bamboo is behind a proxy server, provide port here.
+  bamboo_reverse_proxy_domain: # If Bamboo is behind a proxy server, provide URL here.
+  bamboo_user: # The user the process should run as
+  bamboo_group: # The group the process should run as
+  bamboo_create_systemd: # Creates a systemd service entry
+  bamboo_jvm_memory: # JVM memory settings
+    minimum: 1G
+    maximum: 12G
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Recommended: A Java role.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: memoryleak.bamboo }
 
 License
 -------
 
-BSD
+MIT
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Haydar Ciftci
