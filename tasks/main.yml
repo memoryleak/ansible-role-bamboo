@@ -7,15 +7,13 @@
   get_url:
     dest: /tmp/bamboo.tgz
     url: "{{ bamboo_download_url }}"
-  when:
-    - bamboo_copy_from_file is false
+  when: bamboo_copy_from_file is false
 
 - name: Copy Bamboo archive
   copy:
     dest: /tmp/bamboo.tgz
     src: "{{ bamboo_copy_from_file }}"
-  when:
-    - bamboo_copy_from_file is not false
+  when: bamboo_copy_from_file is not false
 
 - name: Create Bamboo installation directory
   file:
@@ -54,10 +52,8 @@
       state: present
       regexp: 'redirectPort="8443">'
       line: 'secure="true" scheme="https" proxyName="{{ bamboo_reverse_proxy_domain }}" proxyPort="{{ bamboo_reverse_proxy_port }}" redirectPort="{{ bamboo_reverse_proxy_port }}">'
-  when:
-    - bamboo_reverse_proxy_domain is not false
+  when: bamboo_reverse_proxy_domain is not false
 
 - name: Include SystemD tasks
   import_tasks: "systemd.yml"
-  when:
-    - bamboo_create_systemd
+  when: bamboo_create_systemd
